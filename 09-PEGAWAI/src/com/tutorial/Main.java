@@ -5,41 +5,55 @@ class Pegawai {
     private double gajiPokok;
     private double tunjangan;
     private double durasiLembur;
-    private double gajiTidakTetap;
     private double gajiBersih;
 
-    public Pegawai(String nama, double gajiPokok, double tunjangan, double durasiLembur, double gajiTidakTetap) {
+    // Konstruktor
+    public Pegawai(String nama, double gajiPokok, double tunjangan, double durasiLembur) {
         this.nama = nama;
         this.gajiPokok = gajiPokok;
         this.tunjangan = tunjangan;
         this.durasiLembur = durasiLembur;
-        this.gajiTidakTetap = gajiTidakTetap;
         hitungGajiBersih();
     }
 
-    public double getGajiBersih() {
-        return gajiBersih;
+    // Setter untuk tunjangan (opsional)
+    public void setTunjangan(double tunjangan) {
+        this.tunjangan = tunjangan;
+        hitungGajiBersih();
     }
 
-    private void setGajiBersih(double gajiBersih) {
-        this.gajiBersih = gajiBersih;
+    // Setter untuk durasi lembur (opsional)
+    public void setDurasiLembur(double durasiLembur) {
+        this.durasiLembur = durasiLembur;
+        hitungGajiBersih();
     }
 
+    // Fungsi untuk menghitung gaji bersih
     private void hitungGajiBersih() {
-        setGajiBersih(gajiPokok + (tunjangan + durasiLembur) + gajiTidakTetap);
+        double lembur = durasiLembur * (0.05 * gajiPokok);
+        gajiBersih = gajiPokok + tunjangan + lembur;
+    }
+
+    // Fungsi untuk menampilkan informasi pegawai
+    public void tampilInfo() {
+        System.out.println("Nama Pegawai: " + nama);
+        System.out.println("Gaji Pokok: " + gajiPokok);
+        System.out.println("Tunjangan: " + tunjangan);
+        System.out.println("Durasi Lembur: " + durasiLembur);
+        System.out.println("Gaji Bersih: " + gajiBersih);
     }
 
     public static void main(String[] args) {
-        double gajiPokok = 3500000;
-        double gajiTidakTetap = 200000; // Gaji tidak tetap untuk contoh
+        // Membuat objek pegawai tetap
+        Pegawai pegawaiTetap = new Pegawai("UYUN HAFIZAH", 5000000, 0.7 * 5000000, 2);
 
-        Pegawai pegawai1 = new Pegawai("Uyun Hafizah", gajiPokok, 70, 8, gajiTidakTetap);
+        // Membuat objek pegawai tidak tetap
+        Pegawai pegawaiTidakTetap = new Pegawai("PARAS", 3000000, 0, 3);
 
-        System.out.println("Nama: " + pegawai1.nama);
-        System.out.println("Gaji pokok: " + pegawai1.gajiPokok);
-        System.out.println("Tunjangan: " + pegawai1.tunjangan);
-        System.out.println("Durasi lembur: " + pegawai1.durasiLembur);
-        System.out.println("Gaji Tidak Tetap: " + pegawai1.gajiTidakTetap);
-        System.out.println("Gaji Bersih: " + pegawai1.getGajiBersih());
+        // Menampilkan informasi pegawai
+        System.out.println("====Informasi Pegawai Tetap:====");
+        pegawaiTetap.tampilInfo();
+        System.out.println("====Informasi Pegawai Tidak Tetap:====");
+        pegawaiTidakTetap.tampilInfo();
     }
 }
